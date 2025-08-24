@@ -1,0 +1,176 @@
+HTTP Response:
+	When a request is submitted by the client, the server has to send back the response along with the status code.
+	When a client (like a web browser or a mobile app) makes a request to a web service (using HTTP), the server processes that request and sends back a message.
+	👉 That message is called the HTTP Response.
+	It tells the client:
+		Whether the request was successful or failed
+		Any data requested (like JSON, HTML, XML, etc.)
+		Extra details (headers, cookies, etc.)
+	The response can be any type like XML, JSON, or plain text etc...
+	JSON is the widely used representation of the resource because of its lightweight and verbose nature.
+	Status codes:
+		1XX -> 100 series
+		2XX -> 200 series
+		3XX -> 300 series
+		4XX -> 400 series
+		5XX -> 500 series
+
+Question:
+whats this? the response is only in JSON right?
+For what type of data transfer JSON is used?
+So XML,HTML and image files are the same while travelling in the response?
+But while the request and response communication happening, everything goes as 0's and 1's using the frequency right? but how we are saying it travels in json format?
+
+Answer:
+	1. Is the response only in JSON?
+		No.
+		JSON is very popular in modern web services (especially REST APIs) because it 		is lightweight, human-readable, and easy for JavaScript to parse.
+
+		But an HTTP response can carry many formats, depending on what the server sends 		and what the client asks for:
+
+			application/json → JSON data
+
+			application/xml → XML data (common in SOAP services)
+
+			text/html → HTML page (normal websites)
+
+			image/png, image/jpeg → image files
+
+			application/pdf → PDF files
+
+			text/plain → plain text
+
+		The Content-Type header in the HTTP response tells you which format is inside.
+
+	2. For what type of data transfer is JSON used?
+		JSON is mainly used for structured data exchange between client and server in 		web APIs.
+		Example: A mobile app asking a server for user profile details:
+			{
+			  "id": 101,
+			  "name": "Sudharsan",
+			  "role": "Student"
+			}
+		JSON is not used for images or videos — those are sent in their binary formats.
+
+	3. Are XML, HTML, images the same while travelling in the response?
+		Yes, in principle.
+		The HTTP response just carries bytes. Whether those bytes represent JSON text, 		an HTML document, or raw image data depends on the Content-Type header.
+
+		Example:
+			HTML response → browser renders it as a webpage.
+			JSON response → JavaScript parses it into objects.
+			Image response → browser displays the image.
+			So the transport layer (HTTP/TCP) doesn’t care what the content is — it 		just delivers the bytes.
+
+	4. But at the lowest level, isn’t everything just 0’s and 1’s?
+		✅ Exactly!
+			When data travels over the internet, it’s encoded as bits (0 and 1), 			and transmitted using electrical signals, radio waves (Wi-Fi), or light 		pulses (fiber optics).
+			Whether it’s JSON, XML, HTML, or an image, it’s ultimately binary data.
+			So when we say “it travels in JSON format”, we mean:
+				The server encodes the data as JSON text before sending.
+				The client interprets those bytes as JSON (because of the 				Content-Type).
+			The underlying network still just sees raw bits. JSON/XML/HTML are 		higher-level representations of meaning on top of those bits.
+	
+	✅ In short:
+		HTTP responses can carry JSON, XML, HTML, images, or any type of file.
+		JSON is most common for structured API data exchange.
+		On the wire, it’s all 0’s and 1’s. JSON/XML/HTML are just ways to interpret those bits.
+
+
+
+HTTP status codes:
+	There are a lot of http codes,
+		1xx → Info
+		2xx → Success
+		3xx → Redirect
+		4xx → Client error
+		5xx → Server error
+	1XX-Informational:
+		These are rarely seen in practice.
+		They just tell the client: “I got your request, still working on it.”
+		Examples:
+			100 Continue → Client can keep sending request body (server says “go ahead”).
+			101 Switching Protocols → For upgrades (e.g., HTTP → WebSocket).
+
+	2XX-Success:
+		Means the request worked.
+		Examples:
+			200 OK → The standard “all good” response.
+			201 Created → A new resource was successfully created (common in POST APIs).
+			202 Accepted → Request accepted, but not finished yet (e.g., background processing).
+			204 No Content → Success, but nothing to send back (e.g., DELETE request).
+		
+	3XX-Redirection:
+		Means the client must go somewhere else to get the resource.
+		Examples:
+			301 Moved Permanently → Resource has a new URL.
+			302 Found → Temporary redirection (often used for login redirects).
+			304 Not Modified → Cached version is still valid; no need to re-download.
+	
+	4XX-Client Errors:
+		Means the client did something wrong (bad request, unauthorized, etc.).
+		Examples:
+			400 Bad Request → Server couldn’t understand the request (wrong format, missing data).
+			401 Unauthorized → Authentication required (e.g., missing token).
+			403 Forbidden → Client is authenticated but doesn’t have permission.
+			404 Not Found → Resource doesn’t exist.
+			429 Too Many Requests → Client is sending too many requests (rate-limiting).
+
+	5XX-Server Errors:
+		Means the server messed up.
+		Examples:
+			500 Internal Server Error → Generic server crash/error.
+			502 Bad Gateway → A server acting as a gateway got an invalid response.
+			503 Service Unavailable → Server overloaded or down for maintenance.
+			504 Gateway Timeout → Server didn’t respond in time.
+		
+	All the HTTP status codes (whether common ones like 200, 404, 500 or rare ones like 418 	I’m a teapot or 451 Unavailable for Legal Reasons) — they all fit inside those ranges:
+		1xx → Informational
+		2xx → Success
+		3xx → Redirection
+		4xx → Client error
+		5xx → Server error
+		There are no “6xx” or “7xx” official codes in the HTTP standard.
+		So everything defined by IETF or custom extensions lives within 100–599.
+	✅ In short:
+		Yes, all valid HTTP status codes are inside 100–599.
+
+
+Be comfortable with the most used status codes below:
+| **Code**                      | **Category**      | **Meaning**                                     | **When it’s used**                             |
+| ----------------------------- | ----------------- | ----------------------------------------------- | ---------------------------------------------- |
+| **200 OK**                    | ✅ Success         | Request succeeded                               | Standard success for GET/POST requests         |
+| **201 Created**               | ✅ Success         | A new resource was created                      | After POST (e.g., new user created)            |
+| **204 No Content**            | ✅ Success         | Request succeeded, but no body to return        | DELETE request or update with no response body |
+| **301 Moved Permanently**     | 🔄 Redirect       | Resource has a new URL                          | Old links redirect forever to a new one        |
+| **302 Found**                 | 🔄 Redirect       | Temporary redirect                              | Login → redirect to dashboard                  |
+| **304 Not Modified**          | 🔄 Redirect/Cache | Resource not changed since last request         | Browser can use cached version                 |
+| **400 Bad Request**           | ❌ Client Error    | Invalid request syntax/data                     | Missing parameters, malformed JSON             |
+| **401 Unauthorized**          | ❌ Client Error    | Authentication required                         | Missing/invalid login token                    |
+| **403 Forbidden**             | ❌ Client Error    | Access denied even if logged in                 | User doesn’t have permission                   |
+| **404 Not Found**             | ❌ Client Error    | Resource doesn’t exist                          | Wrong URL or deleted resource                  |
+| **500 Internal Server Error** | 💥 Server Error   | Generic server crash                            | Code bug, unexpected failure                   |
+| **502 Bad Gateway**           | 💥 Server Error   | Server acting as a gateway got invalid response | Proxy issues, upstream server crash            |
+| **503 Service Unavailable**   | 💥 Server Error   | Server overloaded or down                       | Maintenance or heavy traffic                   |
+
+
+
+Note: These codes are mainly for developers and systems, not for end-users.
+
+Refer: https://restfulapi.net/http-status-codes/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
