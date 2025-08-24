@@ -1,0 +1,519 @@
+LAT Video 1 & 2 Notes
+
+
+What is web services and what is an api?
+	A service which is available over internet is called web service.
+	API is Application Programming Interface this acts as intermediary between two different applications.
+
+Now Correct and exact definitions are:
+/*Remember bus booking app story*/
+
+Web Service (Correct Definition):
+
+A web service is a service made available over the internet (or any network).
+It is designed for use by other programs or machines, not directly by a human user.
+It allows machine-to-machine communication using standard protocols (like HTTP, SOAP, or REST).
+Example: A weather API that provides JSON data when called by another program.
+
+Web service, services are in a machine readable or other program's readable format like json,xml which will be easily transferred via the network.
+
+Not a Web Service:
+
+If a service is provided directly to a human (like a web page you open in a browser), it is not considered a web service.
+That is usually called a web application or website.
+
+Web service → for machines/programs
+Web app/site → for humans
+
+Where is API?
+	API is everywhere
+	Developers can interact with the specific apps via their specific APIs. Like amazon,flipkart etc... giving their api to smartprix.
+	Weather APIs may be given by Meteorological department,google or amazon which was utilized by the apps to show weather information to the users.
+
+
+Important Terminologies:
+
+Client - anyone who makes the request - a human , a piece of software. (Whoever sents request to the server is client).
+Server - a program which receives the request from the client, process it and returns the response
+URL    - Uniform Resource Locator, a url address which will be shown in the address bar of the current webpage, it is used to uniquely identify the requested resource's location in a web server and also specify the protocol(like http,https and ftp) used to access it.
+URL = Location + Protocol to access resource (on any server, cloud or otherwise)
+HTTP(Hyper Text Transfer Protocol) requests,HTTP requests,Headers,Content types
+SMTP - Simple Mail Transfer Protocols
+FTP  - File Transfer Protocol
+
+ Scenario: A User Requests a Web Page
+
+Let’s say you open a browser and go to:	https://www.example.com/index.html
+
+What Happens Behind the Scenes (Step-by-step with Protocols):
+
+1)DNS Lookup – (Protocol: DNS)
+	The browser asks: “What is the IP address of www.example.com?”
+	DNS server responds: “It’s 93.184.216.34.”
+2)Establishing Connection – (Protocols: TCP/IP)
+	he browser uses TCP to establish a reliable connection with the server at 93.184.216.34.
+3)Sending the Request – (Protocol: HTTP or HTTPS)
+	Browser sends:	
+		GET /index.html HTTP/1.1
+		Host: www.example.com
+4)Server Response – (Protocol: HTTP/HTTPS)
+	The server sends back:
+		HTTP/1.1 200 OK
+		Content-Type: text/html
+
+		<html>...the webpage content...</html>
+
+5)Displaying Content
+	The browser renders the HTML page for the user.
+	If the URL starts with https://, then TLS/SSL encryption is used to secure the communication.
+
+
+Question:
+	saying the passing and messaging over network is having some protocols looks wierd and different to me because, 
+its just a network signal which may raised by the request of client to a server and also the server responds via the network, but what this protocols exactly points to?
+Answer:
+	Protocols are rules or formats that define how data should be structured, sent, understood, and responded to over a network.
+	They are not physical signals, but agreements between sender and receiver about:
+	What each piece of data means.
+  	How to start and end communication.
+	What to do when something fails.
+	What language both sides speak.
+
+
+Think of It Like a Conversation in a Language
+	Imagine you’re asking a friend:
+	"Hey, can you send me the math notes?"
+	This is only effective if:
+	You both speak the same language (say, English).
+	You both understand the context (you’re talking about school, not music).
+	You follow the rules of grammar.
+
+	In computers:
+		The client says: "GET /notes.html HTTP/1.1"
+		The server replies: "200 OK...Here is the data..."
+		That "language" both understand is the protocol — like HTTP, TCP, etc.
+	The Actual Signal vs Protocol
+		The actual data sent over wires is in electrical signals or light pulses or radio waves.
+		But those signals carry bits that are organized using protocol rules.
+		Just like a book is just paper and ink — but when you follow English grammar, the book has meaning.
+
+	HTTP = plain message → no encryption → readable by anyone.
+	HTTPS = HTTP message is encrypted using TLS → server decrypts it before understanding.
+
+
+Question:
+	When the different types of protocols are used and why we cant use only http or https for every request and response?
+
+GPT answers: 
+	Why So Many Protocols?
+		Because not all communication is the same. For example:
+
+		Scenario			   |	Best-Suited Protocol		|		Why not just HTTP/HTTPS?
+=================================================================================================================================================================
+	Browsing websites			   |	HTTP / HTTPS			|		Perfect here — designed for HTML, CSS, JS
+	Sending email			   |	SMTP, IMAP, POP3			|		Emails are structured differently, need inbox/outbox rules
+	Transferring files		   |	FTP, SFTP				|		Need fast transfer, large files, resumable downloads
+	Watching YouTube	RTSP, HTTP,    |	UDP					|		Video streaming needs low-latency delivery
+	Voice calls (Zoom, WhatsApp)	   |	RTP, UDP				|		Real-time audio needs fast delivery, even if a few packets drop
+	Connecting devices (e.g., router)|	DHCP, DNS				|		These help assign IPs and resolve domain names
+
+Analogy: Tools in a Toolbox
+	You wouldn’t use a hammer for every task, right?
+		Hammer = HTTP (great for websites)
+		Screwdriver = FTP (great for files)
+		Wrench = SMTP (great for emails)
+
+Copilot answers:
+	Different Protocols and Their Uses:
+		- FTP (File Transfer Protocol) – Used for transferring large files between a client and a server, often used for managing website files.
+		- SMTP/IMAP/POP3 (Email Protocols) – Used for sending and receiving emails. SMTP sends emails, while IMAP and POP3 retrieve them.
+		- WebSockets – Allows real-time, bidirectional communication, commonly used in chat apps and live updates.
+		- SSH (Secure Shell) – Provides secure remote access to servers for administrative tasks.
+		- DNS (Domain Name System) – Resolves domain names into IP addresses, enabling browsers to locate servers.
+		- TCP & UDP – Lower-level transport protocols; TCP ensures reliability, while UDP is faster but less reliable (e.g., online gaming and streaming).
+		- ICMP (Internet Control Message Protocol) – Used for network diagnostics, like in the "ping" command.
+
+GPT answers:
+Common Network Protocols with Examples:
+
+Protocol		Full Form				Purpose							Example of Use
+====================================================================================================================================================================
+HTTP		HyperText Transfer Protocol		Loading websites (non-encrypted)			Accessing http://example.com from a browser
+HTTPS		HTTP Secure					Loading websites securely				Accessing https://gmail.com or https://amazon.in
+FTP		File Transfer Protocol			Transferring files to/from servers			Uploading a website to a web hosting server
+SFTP		Secure File Transfer Protocol		Encrypted file transfer					Uploading files securely via FileZilla
+SMTP		Simple Mail Transfer Protocol		Sending emails						Sending an email using Outlook or Gmail SMTP server
+IMAP		Internet Message Access Protocol	Reading emails (sync with server)			Gmail syncing across devices
+POP3		Post Office Protocol v3			Downloading and deleting email from server	Retrieving emails in older email clients
+DNS		Domain Name System			Translating domain names to IP addresses		Typing google.com and it resolves to 142.250.180.14
+DHCP		Dynamic Host Configuration Protocol	Assigns IP addresses to devices			When your phone joins a Wi-Fi network and gets an IP
+TCP		Transmission Control Protocol		Reliable data transfer					Web browsing, file download, email (HTTP, HTTPS rely on TCP)
+UDP		User Datagram Protocol			Fast, real-time transfer (less reliable)		Video calls, online gaming, VoIP (Zoom, WhatsApp Call)
+RTP		Real-time Transport Protocol		Streaming audio/video in real time			Zoom or Skype transmitting your voice/video
+RTSP		Real-Time Streaming Protocol		Controls media streaming				Watching CCTV footage or live YouTube streaming
+SSH		Secure Shell				Secure remote login to servers			A developer logging into a Linux server via terminal
+TELNET	Telecommunication Network		Remote login (insecure, outdated)			Older systems or testing network services
+ICMP		Internet Control Message Protocol	Network diagnostics					Used in ping google.com to test connection
+SNMP		Simple Network Management Protocol	Monitoring network devices				Managing routers, switches in a corporate network
+
+Fun Real-Life Situations:
+
+	You open a website → uses DNS to find server → uses HTTPS to load content → uses TCP/IP to transfer data.
+	You send an email → uses SMTP to send, IMAP or POP3 to receive.
+	You watch YouTube live → uses UDP, RTP, possibly RTSP for fast streaming.
+	You play PUBG → uses UDP for low-latency real-time communication.
+	You upload a project to GitHub via SSH → uses SSH protocol for secure connection.
+
+What You Should Know as a Full-Stack Developer
+	 1. Application Layer Protocols (Most important)
+		Protocol				Why You Need It
+		HTTP / HTTPS		Fundamental for web apps, REST APIs, browser-server communication
+		WebSocket			Real-time features (chat, live updates)
+		FTP / SFTP			File upload/download in deployments or CI/CD
+		SMTP / IMAP / POP3	Sending/receiving emails from your app
+		GraphQL (if used)		Alternative to REST, uses HTTP but structured differently
+
+	2. Security Protocols
+		Protocol			Why You Need It
+		TLS/SSL		Underlies HTTPS, protects data in transit
+		OAuth2 / JWT	Auth protocols used in login systems and APIs
+		SSH			Securely connect to servers for deployment/maintenance
+
+	3. Infrastructure & Networking Basics
+		Protocol				Why You Need It
+		TCP/IP			Foundation of all internet traffic
+		DNS				Domain name resolution — important in production setup
+		DHCP (basic idea only)	How IP addresses are assigned
+
+As a Full Stack Developer, you should:
+
+		Skill Area						Protocol Knowledge Needed
+	Frontend (React, HTML)				HTTP/HTTPS, WebSocket
+	Backend (Node.js, Django)			HTTP, WebSocket, REST, GraphQL
+	API Authentication				OAuth2, JWT, HTTPS
+	DevOps (deploying app)				SSH, FTP/SFTP, DNS, HTTPS, TLS
+	Real-time apps (chat, notifications)	WebSocket, possibly TCP/UDP basics
+	Email features in app				SMTP, IMAP/POP3 basics
+
+
+We are getting the Hypertext Markup Language files from the server so for that we are using Hypertext Transfer Protocol.
+
+Question:
+The html,css and js are also in the files right then why not FTP?
+
+GPT answer:
+	Why Not FTP for Loading HTML, CSS, JS?
+		1. HTTP is meant for browser communication
+			When you type a URL like https://example.com:
+				Your browser makes an HTTP(S) request to the server.
+				The server responds with HTML, CSS, JS, images, etc.
+				All of this happens over HTTP(S) because it:
+					Handles web content efficiently
+					Understands caching, cookies, compression
+					Works with JavaScript AJAX calls
+					Is secure (via HTTPS)
+
+				FTP cannot do any of that.
+	
+		2. FTP is for Developers/Admins, Not Users
+			FTP is used by developers or server admins to:
+				Upload website files (HTML, CSS, JS) to the server
+				Download or update files during development or deployment
+				But users visiting your website do not interact using FTP.
+		But users visiting your website do not interact using FTP.
+		
+		Two Different Scenarios
+			Scenario							Protocol
+		Developer uploads website files to server		FTP (or SFTP/SSH)
+		User visits the website and loads content		HTTP/HTTPS
+
+	Analogy
+		Think of FTP like a truck delivering goods (files) to a store (server).
+		But customers (users) don’t use the truck — they walk in through the front door (HTTP) to shop (view the website).
+
+How the HTTP protocol works is called HTTP methods.
+The HTTP requests happens via the HTTP methods.
+Different type of HTTP methods are,
+(Only the most pre-dominantly used 5 methods)
+		GET    - To retrieve data from the server
+		POST   - To create a new resource on the server
+		PUT    - To update (replace) an existing resource
+		DELETE - To partially update a resource
+		PATCH  - To delete a resource
+
+
+
+Headers:
+	An HTTP header is extra information sent along with the request (or response) to help the client and server communicate better.
+	You can think of it like the "cover slip" on a letter that tells the post office how to handle it — who it's for, what format it's in, whether it's urgent, etc.
+Purpose of Headers:
+	To give metadata about the request/response	
+	To define how data should be sent, received, cached, authorized, etc.
+
+Example: Headers in an HTTP Request
+	GET /products HTTP/1.1
+	Host: example.com
+	User-Agent: Mozilla/5.0
+	Accept: application/json
+	Authorization: Bearer <token>
+
+| Header          | Meaning                                                       |
+| --------------- | ------------------------------------------------------------- |
+| `Host`          | Domain name of the server                                     |
+| `User-Agent`    | Info about the browser/device making the request              |
+| `Accept`        | What kind of response the client can handle (like JSON, HTML) |
+| `Authorization` | Used to pass login tokens or credentials                      |
+
+Similarly, HTTP Responses also have Headers:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 348
+Set-Cookie: sessionId=abc123
+
+Content types:
+	The Content-Type is an HTTP header that tells the server or client what format the data is in.
+	It answers the question:
+		“What type of content am I sending or receiving?”
+Example Content Types:
+| Content-Type                        | Description                            |
+| ----------------------------------- | -------------------------------------- |
+| `text/html`                         | HTML document                          |
+| `text/plain`                        | Plain text                             |
+| `application/json`                  | JSON data (commonly used in APIs)      |
+| `application/xml`                   | XML data                               |
+| `multipart/form-data`               | File uploads or forms with files       |
+| `application/x-www-form-urlencoded` | Regular form data (from HTML `<form>`) |
+
+In Web Services (REST APIs):
+	 When a client sends data:
+		POST /api/users HTTP/1.1
+		Content-Type: application/json
+		{
+  			"name": "John",
+  			"age": 30
+		}
+	This tells the server:
+	 “Hey, I'm sending JSON data!”
+
+ When a server sends a response:
+	HTTP/1.1 200 OK
+	Content-Type: application/json
+	{
+  		"message": "User created successfully"
+	}
+	This tells the client (e.g., your browser or app):
+	“Hey, the data I'm sending back is in JSON format.”
+Why is Content-Type important?
+	Ensures correct parsing of data
+	Avoids errors and confusion between server and client
+	Required for API communication, file uploads, forms, etc.
+
+Content-Type is a key part of HTTP headers used to describe what kind of data is being sent or received.
+
+Response:
+	In web communication (especially with HTTP), a response is the data sent back by the server to the client after processing the request.
+
+Think of it as:
+	Request = Asking a question
+	Response = Getting the answer
+
+Simple Request-Response Cycle:
+
+	Client sends a request to the server (like asking for a webpage or data).
+	Server processes the request.
+	Server sends back a response (with the result or an error).
+
+HTTP Response Structure
+	A response has 3 main parts:
+	HTTP/1.1 200 OK                  ← Status Line
+	Content-Type: application/json   ← Headers
+	Content-Length: 45               ← Headers
+
+	{ "message": "User created" }    ← Body (Data)
+
+
+| Part            | Purpose                                                        |
+| --------------- | -------------------------------------------------------------- |
+| **Status Line** | Shows response status (like 200 OK or 404 Not Found)           |
+| **Headers**     | Metadata about the response (e.g., content type, length)       |
+| **Body**        | The actual **data/content** being sent back (e.g., HTML, JSON) |
+
+
+| Code                          | Meaning                              |
+| ----------------------------- | ------------------------------------ |
+| **200 OK**                    | Success ✅                            |
+| **201 Created**               | Resource successfully created        |
+| **400 Bad Request**           | Invalid request from client ❌        |
+| **401 Unauthorized**          | User is not logged in                |
+| **403 Forbidden**             | No permission to access              |
+| **404 Not Found**             | The requested resource doesn’t exist |
+| **500 Internal Server Error** | Problem on the server ❌              |
+
+Real-Life Analogy:
+	You walk into a bakery (client) and ask for a cake (request).
+	The baker (server) checks, and gives you the cake (response).
+	If there's no cake, they say "Sorry, not found" (404 response).
+
+Status code:
+A status code is a 3-digit number sent by the server in response to a client’s request, to tell what happened.
+	It’s part of the HTTP response, and it gives the client a quick summary like:
+	Was the request successful?
+	Was there an error?
+	Do you need to login?
+	Is the resource missing?
+
+HTTP Status Codes are for machines — not directly for humans.
+
+When a client (like a browser or app) sends a request, the server responds with a status code.
+The client program reads that code to decide what to do next.
+Humans usually see a friendly message, but the logic behind it depends on the status code.
+
+Example: Browser
+	You open a broken link.
+	The server sends: 404 Not Found
+	Your browser understands that and shows you a "404 Page Not Found" message.
+	But the actual code 404 is meant for the browser to interpret, not you.
+Yes — status codes are primarily for machines to understand and act on.
+Humans may see a message, but only because the software interprets the code and shows something friendly.
+
+Now I understands:
+	So the server only sends the status code, the browser is the one which shows the friendly ui representing the problem
+	(The above understanding was correct and verified by GPT).
+
+
+
+| Code    | Name                  | Meaning                                                        |
+| ------- | --------------------- | -------------------------------------------------------------- |
+| **200** | OK                    | Request was successful.                                        |
+| **201** | Created               | New resource (like a user or file) was successfully created.   |
+| **400** | Bad Request           | Client sent an invalid or corrupted request.                   |
+| **401** | Unauthorized          | User is not authenticated (like not logged in).                |
+| **403** | Forbidden             | User is authenticated, but not allowed to access the resource. |
+| **404** | Not Found             | The requested resource doesn’t exist.                          |
+| **500** | Internal Server Error | Something went wrong on the server side.                       |
+
+
+So 200,201,400,401,403,404,500 these are the most commonly used status codes
+
+| Range   | Meaning                                                    |
+| ------- | ---------------------------------------------------------- |
+| **1xx** | Informational (rarely used)                                |
+| **2xx** | ✅ Success (the request worked)                             |
+| **3xx** | 🔁 Redirection (resource moved, etc.)                      |
+| **4xx** | ❌ Client Error (your fault – bad request, not found, etc.) |
+| **5xx** | 💥 Server Error (server failed to handle the request)      |
+
+
+JSON(Javascript Object Notation) and XML(eXtensible Markup Language)
+
+	JSON and XML are both formats used to structure and exchange data, especially in web services (like APIs)
+
+What is JSON (JavaScript Object Notation)?
+	Lightweight data format
+	Easy to read and write
+	Mostly used in modern web APIs
+	Looks like JavaScript objects
+Example:
+{
+  "name": "Arun",
+  "age": 20,
+  "isStudent": true,
+  "skills": ["Java", "C", "HTML"]
+}
+
+	Key-value pairs
+	Data is enclosed in { }
+	Keys are in double quotes
+
+What is XML (eXtensible Markup Language)?
+	Older format
+	Looks like HTML
+	More verbose (longer and harder to read than JSON)
+	Still used in some systems (like legacy SOAP APIs)
+Example:
+	<person>
+  		<name>Arun</name>
+  		<age>20</age>
+  		<isStudent>true</isStudent>
+  		<skills>
+    			<skill>Java</skill>
+    			<skill>C</skill>
+    			<skill>HTML</skill>
+  			</skills>
+		</person>
+
+JSON vs XML(comparision):
+
+| Feature        | JSON            | XML                 |
+| -------------- | --------------- | ------------------- |
+| Format Style   | Key-value       | Tag-based           |
+| Readability    | Easy            | Verbose             |
+| Used In        | REST APIs       | Older systems, SOAP |
+| Data Size      | Smaller         | Larger              |
+| Speed          | Faster to parse | Slower to parse     |
+| Human-friendly | ✅ Yes           | ❌ Less friendly     |
+
+
+Real-life Analogy:
+JSON is like a modern chat message: short, clean, to the point.
+XML is like an official letter: formal, structured, and longer.
+
+In Web Services:
+	Modern APIs use JSON (default in REST APIs).
+	Old APIs or systems may still use XML (like SOAP-based services).
+
+So commonly i can identifies these both, as "json - data sending format used in the modern APIs" and whereas "XML is the data sending format used in the older APIs" 
+
+For almost all new web‑service work you do as a full‑stack developer, you’ll default to JSON.
+
+
+
+Structure of a HTTP request:
+	<Method> <URL/Path> <HTTP-Version>
+	Headers
+	(blank line)
+	Body (only for POST, PUT, PATCH)
+Example: POST Request to Login
+	POST /login HTTP/1.1             ← Method + URL + HTTP version
+	Host: www.example.com            ← Header
+	Content-Type: application/json   ← Header
+
+	{                                ← Body (data you are sending)
+  		"username": "chatgpt",
+  		"password": "secret123"
+	}
+GET Request to Fetch Data
+	GET /profile?userId=42 HTTP/1.1  ← Method + URL + HTTP version
+	Host: www.example.com            ← Header
+	Accept: application/json         ← Header
+	(no body in GET request)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
