@@ -1,0 +1,325 @@
+LAT video 3 
+
+
+HTTP methods: Every http request will travel in a particular method
+	
+Question: Why its called method? Is this type of any function related thing in http?
+	  Why these http protocols are called methods?
+
+Why is it called a "method" in HTTP?
+	In HTTP, the word "method" refers to the action or operation you want the server to perform on a resource (like a file, a webpage, or data). Just like a function or method in programming tells what action to do, an HTTP method tells the server what kind of request the client (like a browser) is making.
+
+So, HTTP methods are like commands:
+	GET → "Please give me this data."
+	POST → "Please accept and process this data."
+	PUT → "Please update this data."
+	DELETE → "Please delete this data."
+
+Is it like a function?
+	Yes — in concept, it's similar to a function call in programming:
+Is it like a function?
+	Yes — in concept, it's similar to a function call in programming:
+| Programming                                | HTTP                                           |
+| ------------------------------------------ | ---------------------------------------------- |
+| `getUserData()` → function to get data     | `GET /user-data` → HTTP method to get data     |
+| `submitForm(data)` → function to send data | `POST /submit-form` → HTTP method to send data |
+
+So, an HTTP method is like a verb that describes what you want to do with a resource.
+
+Most Commonly used HTTP methods in internet:
+	
+GET: 
+
+Resources : In the internet everything is almost a resource, like downloading a movie or song 	   from the website, posts from facebook,insta are also a resource.
+
+	So this GET method is used to retrieve a resource from a server or the internet.
+	Which does not make any modifications on the server is what the GET method is used for, its only for retrieving, so retrieving resources from the server without any modifications on those resources, in this case the GET method is used.
+
+GET explained:
+	GET Explained 
+		to retrieve resource representation/information only and not to modify it in 	any way. 
+		GET requests do not change the state of the resource, these are said to be safe 	methods. 
+		GET APIs should be idempotent(unchanged or the state of resource never changes even though we perform various operations on it). 
+		GET Request will return the resource if found on the server, with status codes 	and the response body. 
+		If the resource is not found, then the relevant status code will be returned. 
+	Examples of GET URL: 
+		HTTP GET http://www.appdomain.com/users 
+		HTTP GET http://www.appdomain.com/users?size=20&page=5 
+		HTTP GET http://www.appdomain.com/users/123 
+		HTTP GET http://www.appdomain.com/users/123/address
+
+Key Points About GET Method:
+| Feature          | Explanation                                                                                     |
+| ---------------- | ----------------------------------------------------------------------------------------------- |
+| **Purpose**      | To retrieve data from a server.                                                                 |
+| **Data Sending** | Data is sent in the **URL** (as query parameters).                                              |
+| **Visibility**   | Parameters are **visible in the URL**, e.g. `?id=123&name=chatgpt`.                             |
+| **Caching**      | GET requests can be **cached** by browsers.                                                     |
+| **Bookmarking**  | URLs with GET parameters can be **bookmarked**.                                                 |
+| **Security**     | Not suitable for sending **sensitive data** (e.g., passwords).                                  |
+| **Safe**         | Does **not change** anything on the server. It's **read-only**.                                 |
+| **Idempotent**   | Sending the same GET request multiple times will result in the same response (no side-effects). |
+
+In HTTP:
+	When we say:
+	GET APIs are idempotent, it means:
+	📌 Making the same GET request multiple times will not change anything on the server, and It will always return the same response (if the resource hasn’t changed).
+
+
+POST method:
+	   POST Explained 
+		create a new resource 
+		POST requests are not SAFE methods. 
+		POST requests are NOT idempotent. (i.e) invoking two identical POST requests will result in two different resources containing the same information (except resource ids) 
+		POST request will return a status code, if the resource is successfully created. 
+		Examples of POST URL: (POST request will have POST BODY. we will see that in detail) : 
+			HTTP POST http://www.appdomain.com/users 
+			HTTP POST http://www.appdomain.com/users/123/accounts
+
+	   What is a POST request in HTTP?
+		The POST method is used to send data to the server to create or process something.
+		Think of it like submitting a form — you're giving information to the server, and the server does something with it.
+	   Key Points of POST:
+		| Feature          | Explanation                                                                               |
+		| ---------------- | ----------------------------------------------------------------------------------------- |
+		| **Purpose**      | To **send** data to the server (usually to **create** a new resource).                    |
+		| **Data Sending** | Data is sent in the **body** of the HTTP request (not in the URL).                        |
+		| **Visibility**   | Data is **not visible** in the URL (unlike GET).                                          |
+		| **Caching**      | POST requests are **not cached** by default.                                              |
+		| **Bookmarking**  | Cannot be bookmarked (no useful URL with query parameters).                               |
+		| **Safe?**        | ❌ No — it **modifies** data on the server.                                                |
+		| **Idempotent?**  | ❌ No — sending the same POST multiple times can cause **multiple records** to be created. |
+
+		| Feature        | POST                             |
+		| -------------- | -------------------------------- |
+		| Used for       | Sending data, creating resources |
+		| Sends data via | Request **body**                 |
+		| Safe           | ❌ No                             |
+		| Idempotent     | ❌ No                             |
+		| Caching        | ❌ Not cached                     |
+
+Question: But post is usually safe right for sending sensitive data.
+
+"Safe" in HTTP vs "Secure"
+	In HTTP terminology:
+		| Term                     | Meaning                                                                   |
+		| ------------------------ | ------------------------------------------------------------------------- |
+		| **Safe method**          | A method that does **not change** anything on the server. Example: `GET`  |
+		| **Secure communication** | Means **data is protected** from being seen by others (like using HTTPS). |
+	
+	So when we say:
+		"POST is not safe" — it means:
+		It changes data on the server (e.g., creates something).
+		It’s not safe in the HTTP definition.
+	But when you say:
+		"POST is safe for sending sensitive data" — you’re right in terms of security because:
+		Data is sent in the body, not in the URL.
+		It's not logged in browser history or server logs like GET URLs can be.
+		When used with HTTPS, the data is encrypted in transit.
+
+	So, to be clear:
+		| Aspect                         | POST                                   |
+		| ------------------------------ | -------------------------------------- |
+		| **HTTP Safe Method?**          | ❌ No (because it modifies server data) |
+		| **Secure for sensitive data?** | ✅ Yes (if used with **HTTPS**)         |
+
+	Why not use GET for passwords?
+		Because:
+			GET sends data in the URL → visible in browser history, bookmarks, and server logs.
+			POST sends data in the body → hidden from URLs and logs (safer).
+		 Final Tip:
+			To send sensitive data (like passwords, personal info):
+				Use POST
+				Always use HTTPS to encrypt the data in transit.
+
+PUT method:
+	PUT Explained 
+		to update existing resource 
+		if the resource does not exist then API may decide to create a new resource 
+	Examples of PUT URL: 
+		HTTP PUT http://www.appdomain.com/users 
+		HTTP PUT http://www.appdomain.com/users/123/accounts
+
+What is the PUT method?
+	The PUT method is used to update or replace an existing resource completely on the server.
+	Sometimes it's also used to create a resource if it doesn’t exist — but its main use is update/replace.
+
+Key Characteristics of PUT
+| Feature           | Details                                                            |
+| ----------------- | ------------------------------------------------------------------ |
+| **Purpose**       | Update or replace an existing resource                             |
+| **Data location** | Sent in the **body**                                               |
+| **Idempotent?**   | ✅ Yes — repeating the same PUT request **won’t change the result** |
+| **Safe?**         | ❌ No — it **modifies data** on the server                          |
+| **Cacheable?**    | ❌ Not by default                                                   |
+
+ Difference Between PUT and POST
+| Feature            | PUT                                 | POST                            |
+| ------------------ | ----------------------------------- | ------------------------------- |
+| Use                | **Update** (or create if not exist) | **Create** a new resource       |
+| Idempotent         | ✅ Yes                               | ❌ No                            |
+| Repeated Calls     | No effect after first success       | Creates new resource every time |
+| Replace or Append? | **Replaces** the resource           | **Adds** a new resource         |
+
+
+How can PUT create a new resource if it doesn’t exist?
+
+What PUT Usually Does
+✅ If the resource exists → PUT will replace it completely.
+
+✅ If the resource does not exist → PUT can create it at the specified URI (URL), if the server allows it.
+
+This behavior depends on how the server is implemented.
+
+
+DELETE :
+
+	DELETE APIs are used to delete resources 
+	if the resource is present then the resource will be deleted and the relevant status code will be sent back. 
+	DELETE Method is idempotent in official documentation. 
+	Examples of DELETE URL:  
+		HTTP DELETE http://www.appdomain.com/users 
+		HTTP DELETE http://www.appdomain.com/users/123/accounts
+
+  DELETE explanation:
+	What is the DELETE method?
+		The DELETE method is used to remove a resource from the server.
+		Example:
+			DELETE /users/123
+		This request tells the server:
+			“Please delete the user with ID 123.”
+	Key Properties of DELETE:
+		| Feature         | Description                                                                                              |
+		| --------------- | -------------------------------------------------------------------------------------------------------  |
+		| **Purpose**     | To **delete** a resource (file, user, post, etc.)                                                        |
+		| **Idempotent?** | ✅ Yes — deleting the same resource multiple times will have the **same effect** (it will stay deleted). |
+		| **Safe?**       | ❌ No — it **changes data** on the server (removal).                                                     |
+		| **Has a body?** | 🔸 Technically, a body can be included, but it's often ignored and **not recommended**.                  |
+   	If the resource doesn’t exist?
+		Still valid. For example:
+			DELETE /users/9999
+		Might return:
+			404 Not Found → if the server checks first and says “No such user”
+			204 No Content → if server says “Already deleted or doesn’t matter”
+			So it still follows idempotency: same effect no matter how many times you do it.
+		Security Note
+			Since DELETE modifies data, it should be protected:
+			✅ Authenticated (e.g., user must be logged in)
+			✅ Authorized (e.g., only the owner or admin can delete)
+		Real-World Examples
+			| Action                | Method                  |
+			| --------------------- | ----------------------- |
+			| Delete a blog post    | `DELETE /posts/101`     |
+			| Unfollow a user       | `DELETE /followers/567` |
+			| Remove item from cart | `DELETE /cart/items/9`  |
+		Summary:
+			| Feature     | DELETE                               |
+			| ----------- | ------------------------------------ |
+			| Goal        | Remove a resource                    |
+			| Idempotent  | ✅ Yes                                |
+			| Safe        | ❌ No — it changes data               |
+			| Response    | `200 OK`, `204 No Content`, or `404` |
+			| Needs Body? | ❌ Usually not                        |
+
+
+Question: How the delete will be an idempotent? Because when resource in the server gets deleted that changes the server's state right?
+
+GPT answers:
+	Absolutely 💯 — you're right to think deeply here.
+	You're asking:
+		“If DELETE changes the server’s state (by removing data), then how can it be idempotent?”
+	Let’s break this down carefully — because this is a classic confusion when learning HTTP methods.
+
+	First: What does “idempotent” mean in HTTP?
+		A method is idempotent if making the same request multiple times has the same effect as making it once.
+		🔁 It's not about whether it changes the server — it’s about whether repeating it changes the result again.
+	Example: DELETE /users/123
+	 First time:
+		The server finds and deletes user 123.
+		Server state changes.
+		Response: 200 OK or 204 No Content
+	 Second time:
+		The server checks: user 123 already gone.
+		No more changes.
+		Response: 404 Not Found or still 204 No Content
+	Key Point:
+		The result is the same — user 123 is gone — even if you send the request again.
+		That’s why DELETE is idempotent.
+		It changes the server the first time, but not more on repeated requests.
+Idempotency Recap
+| Method   | Is it idempotent?   | Why?                                                 |
+| -------- | -----------------   | ---------------------------------------------------- |
+| `GET`    | ✅ Yes             | Doesn't change anything                              |
+| `PUT`    | ✅ Yes             | Same request = same data replaces existing           |
+| `DELETE` | ✅ Yes             | After delete, further deletes don’t change the state |
+| `POST`   | ❌ No              | Each call creates something new                      |
+
+
+Final Answer:
+	DELETE is idempotent because:
+		The first request deletes the resource.
+		All future requests to delete the same resource have no further effect.
+		Even though state changes once, it doesn’t keep changing.
+
+
+Some other methods in HTTP:
+	OPTIONS
+	PATCH(similar to PUT, used to update anything partially)
+	HEAD
+	COPY
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
